@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags%}
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+<h2>Все категории</h2>
+<table>
+        <tr>
+            <td> Название </td>
+        </tr>
+        {% for cat in category_list %}
+        <tr>
+            <td> {{cat}}</td>
+            <td>
+                {% if request.user in cat.subscribers.all %}
+                <a href="{% url 'unsubscribe' cat.id %}"> Отписаться</a>
+                {% else %}
+                <a href="{% url 'subscribe' cat.id %}">Подписаться</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+</table>
+
+{% endblock content %}

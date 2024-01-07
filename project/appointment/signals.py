@@ -16,3 +16,4 @@ def notify_managers_appointment(sender, instance, created, **kwargs):
         subject=subject,
         message=instance.message,
     )
+

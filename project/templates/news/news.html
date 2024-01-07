@@ -11,12 +11,20 @@ News
     <h1>Все новости</h1>
     <h4><a href="category/">Подписаться на любимые категории </a></h4>
     <h3>{{ time_now|date:'M d Y'}}</h3>
+<table>
+    <tr>
+        <td><a href="create/">Создать новость</a></td>
+        <td><a href="articles/create/">Создать статью</a></td>
+    </tr>
+
+</table>
     <hr>
     {% if news %}
         <table>
             <tr>
                 <td>Название</td>
                 <td>Описание</td>
+                <td>Категория</td>
                 <td>Тип публикации</td>
             </tr>
             {% for new in news %}
@@ -24,13 +32,15 @@ News
                 <td>{{ new.title|truncatechars:10 }}</td>
                 <td>{{ new.content_text| truncatechars:15 }}</td>
                 <td>
-                    {% for category in post.post_category.all %}
+                    {% for category in new.post_category.all %}
                     <a>{{category}}</a>
                     {% endfor %}
                 </td>
                 <td>{{ new.type_choice }}</td>
             </tr>
+
             {% endfor %}
+
         </table>
     {% else %}
         <h2>Новостей пока нет!</h2>

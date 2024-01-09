@@ -1,7 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (ListView, DetailView, UpdateView, DeleteView)
 from django.views.generic.edit import CreateView
 from .filters import PostFilter
@@ -9,6 +11,7 @@ from .forms import PostForm
 from .models import Post, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView
+from .tasks import send_notifications, notify_about_new_post
 
 
 class NewsList(ListView):
@@ -121,3 +124,10 @@ def unsubscribe(request, pk):
     category = Category.objects.get(pk=pk)
     category.subscribers.remove(user)
     return redirect("category_list")
+
+
+class IndexView(View):
+    def get(self, request):
+        send_notifications.delay()
+        notify_about_new_post.delay()
+        return HttpResponse('Hello!')

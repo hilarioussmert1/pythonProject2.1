@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (NewsList, NewDetail, NewsSearch, NewsCreate, NewsUpdate, NewsDelete, CategoryView, subscribe,
-                    unsubscribe, CategoryList)
+                    unsubscribe, CategoryList, IndexView)
 
 urlpatterns = [
     path('', NewsList.as_view(), name='news_list'),
@@ -15,4 +15,5 @@ urlpatterns = [
     path('category/', CategoryList.as_view(), name='category_list'),
     path('category/<int:pk>/subscribe', subscribe, name='subscribe'),
     path('category/<int:pk>/unsubscribe', unsubscribe, name='unsubscribe'),
+    path('index/', IndexView.as_view, name='index')
 ]

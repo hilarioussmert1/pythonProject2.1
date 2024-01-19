@@ -4,6 +4,7 @@ from .filters import ProductFilter
 from .forms import ProductForm
 from .models import Product
 from django.views.generic import ListView, DetailView, CreateView
+from django.core.cache import cache
 
 
 class ProductsList(ListView):
@@ -11,7 +12,7 @@ class ProductsList(ListView):
     ordering = 'product_name'
     template_name = 'products.html'
     context_object_name = 'products'
-    paginate_by = 2
+    paginate_by = 4
 
     #Фильтры на страничке
     def get_queryset(self):
@@ -28,9 +29,15 @@ class ProductsList(ListView):
 
 
 class ProductDetail(DetailView):
-    model = Product
     template_name = 'product.html'
-    context_object_name = 'product'
+    queryset = Product.objects.all()
+
+    def get_object(self,  *args, **kwargs):
+        obj = cache.get(f'product-{self.kwargs["pk"]}', None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'product-{self.kwargs["pk"]}', obj)
+            return obj
 
 
 class ProductCreate(CreateView):

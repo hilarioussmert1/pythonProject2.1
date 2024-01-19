@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
+from django.core.cache import cache
 
 
 class Product(models.Model):
@@ -19,6 +20,10 @@ class Product(models.Model):
     #get_absolute_url сделан для чтобы после создания продукта нас перекидывало на страничку с этим id
     def get_absolute_url(self):
         return reverse('product_detail', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'product-{self.pk}')
 
 
 class Category(models.Model):

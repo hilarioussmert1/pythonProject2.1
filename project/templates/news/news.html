@@ -1,6 +1,7 @@
 {% extends 'flatpages/default.html' %}
 
 {% load custom_tags%}
+{% load custom_filter%}
 
 {% block title %}
 News
@@ -29,7 +30,7 @@ News
             </tr>
             {% for new in news %}
             <tr>
-                <td>{{ new.title|truncatechars:10 }}</td>
+                <td>{{ new.title|truncatechars:10|hide_forbidden }}</td>
                 <td>{{ new.content_text| truncatechars:15 }}</td>
                 <td>
                     {% for category in new.post_category.all %}

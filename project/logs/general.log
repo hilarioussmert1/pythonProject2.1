@@ -1,0 +1,4 @@
+2024-01-19 20:10 INFO C:\Users\Иван\PycharmProjects\pythonProject2\venv\lib\site-packages\django\utils\autoreload.py Watching for file changes with StatReloader None 
+2024-01-19 20:10 INFO C:\Users\Иван\PycharmProjects\pythonProject2\venv\lib\site-packages\django\core\servers\basehttp.py "GET /news/ HTTP/1.1" 200 4242 None 
+2024-01-19 20:10 INFO C:\Users\Иван\PycharmProjects\pythonProject2\venv\lib\site-packages\django\core\servers\basehttp.py "GET /news/ HTTP/1.1" 200 4242 None 
+2024-01-19 20:11 INFO C:\Users\Иван\PycharmProjects\pythonProject2\venv\lib\site-packages\django\utils\autoreload.py C:\Users\Иван\PycharmProjects\pythonProject2\project\project\settings.py changed, reloading. None 
